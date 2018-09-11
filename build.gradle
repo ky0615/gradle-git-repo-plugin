@@ -29,3 +29,16 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives javadocJar, sourcesJar
 }
+
+def repo = new File(rootDir, "repository")
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${repo.absolutePath}"
+            pom.version = "${version}"
+            pom.groupId = "com.layer"
+            pom.artifactId = "gradle-git-repo-plugin"
+        }
+    }
+}
